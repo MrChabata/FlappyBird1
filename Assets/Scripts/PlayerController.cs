@@ -16,12 +16,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rb.simulated == false && Input.GetKeyDown(KeyCode.Space))
+        if (rb.simulated == false && Input.GetKeyDown(KeyCode.Space))
         {
             rb.simulated = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.zero;
             rb.AddForce(new Vector2(0, 1) * jumpStrenght, ForceMode2D.Impulse);
@@ -29,5 +29,13 @@ public class PlayerController : MonoBehaviour
 
         float speedY = rb.velocity.y;
         animator.SetFloat("SpeedY", speedY);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Ice")
+        {
+        Destroy(gameObject);    
+        }
     }
 }
