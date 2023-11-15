@@ -14,6 +14,13 @@ public class IceBlocks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Global.isPause) return;
+        if (!Global.isAlive)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         rb.velocity = -transform.right * speed;
     }
 }

@@ -8,19 +8,40 @@ public class Spawner : MonoBehaviour
     private bool isGameStarted;
     private float topY = 1;
     private float bottomY = -1;
+    bool flag = false;
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Global.isPause) return;
+        if (!Global.isAlive)
+        {
+            StopCoroutine("Courutin");
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted)
         {
             isGameStarted = true;
             SpawnerPlatform();
         }
+
+        if (isGameStarted && !flag)
+        {
+            StartCoroutine("Courutin");
+            flag = true;
+        }
+    }
+
+    IEnumerator Courutin()
+    {
+        int randomTime = Random.Range(3, 5);
+        yield return  new WaitForSeconds(randomTime);
+        SpawnerPlatform();
+        StartCoroutine("Courutin");
     }
 
     private void SpawnerPlatform()
@@ -31,4 +52,5 @@ public class Spawner : MonoBehaviour
         newPos.y += randomOffset;
         Instantiate(iceBlocks[randomIndex], newPos, Quaternion.identity);
     }
+
 }

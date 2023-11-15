@@ -1,21 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public float jumpStrenght;
     private Rigidbody2D rb;
     private Animator animator;
+    public GameObject deathScreen;
+    private int score;
+    public Text text;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        score = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Global.isPause) return;
+        if (!Global.isAlive) return;
+
         if (rb.simulated == false && Input.GetKeyDown(KeyCode.Space))
         {
             rb.simulated = true;
@@ -35,7 +43,18 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ice")
         {
-        Destroy(gameObject);    
+            Global.isAlive = false;
+            Destroy(gameObject);
+            deathScreen.SetActive(true);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Score")
+        {
+            score += 1;
+            text.text = score.ToString();
         }
     }
 }
