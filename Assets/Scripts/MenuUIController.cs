@@ -20,6 +20,7 @@ public class MenuUIController : MonoBehaviour
 
     public void ExitGame()
     {
+        audio.Play();
         print("ExitGame");
         Application.Quit();
     }
