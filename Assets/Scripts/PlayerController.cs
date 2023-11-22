@@ -11,11 +11,13 @@ public class PlayerController : MonoBehaviour
     public GameObject deathScreen;
     private int score;
     public Text text;
+    private AudioSource audio;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         score = 0;
+        audio = GameObject.FindGameObjectWithTag("FlapSound").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            audio.Play();
             rb.velocity = Vector2.zero;
             rb.AddForce(new Vector2(0, 1) * jumpStrenght, ForceMode2D.Impulse);
         }

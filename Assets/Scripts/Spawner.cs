@@ -6,8 +6,8 @@ public class Spawner : MonoBehaviour
 {
     public GameObject[] iceBlocks;
     private bool isGameStarted;
-    private float topY = 1;
-    private float bottomY = -1;
+    public float topY = 1;
+    public float bottomY = -1;
     bool flag = false;
     void Start()
     {
@@ -50,7 +50,8 @@ public class Spawner : MonoBehaviour
         Vector3 newPos = transform.position;
         float randomOffset = Random.Range(bottomY, topY);
         newPos.y += randomOffset;
-        Instantiate(iceBlocks[randomIndex], newPos, Quaternion.identity);
+        GameObject newBlock = Instantiate(iceBlocks[randomIndex], newPos, Quaternion.identity);
+        Destroy(newBlock, 5);
     }
 
 }
