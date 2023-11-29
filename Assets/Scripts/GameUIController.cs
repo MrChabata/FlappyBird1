@@ -50,7 +50,6 @@ public class GameUIController : MonoBehaviour
 
     public void BackToMenu()
     {
-        audio.Play();
         SceneManager.LoadScene("Menu");
         Time.timeScale = 1;
         Global.isPause = false;
@@ -58,7 +57,6 @@ public class GameUIController : MonoBehaviour
 
     public void Continue()
     {
-        audio.Play();
         pausePanel.SetActive(false);
         Time.timeScale = 1;
         Global.isPause = false;

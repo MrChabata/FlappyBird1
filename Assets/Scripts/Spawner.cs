@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     public float topY = 1;
     public float bottomY = -1;
     bool flag = false;
+    public GameObject fish;
     void Start()
     {
     }
@@ -51,6 +52,10 @@ public class Spawner : MonoBehaviour
         float randomOffset = Random.Range(bottomY, topY);
         newPos.y += randomOffset;
         GameObject newBlock = Instantiate(iceBlocks[randomIndex], newPos, Quaternion.identity);
+        if (Random.Range(0, 2) == 1)
+        {
+            Instantiate(fish, newBlock.transform.position, Quaternion.identity);
+        }
         Destroy(newBlock, 5);
     }
 

@@ -11,13 +11,16 @@ public class PlayerController : MonoBehaviour
     public GameObject deathScreen;
     private int score;
     public Text text;
-    private AudioSource audio;
+    private int fishScore;
+    public Text fish;
+    private AudioSource flapSound;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         score = 0;
-        audio = GameObject.FindGameObjectWithTag("FlapSound").GetComponent<AudioSource>();
+        fishScore = 0;
+        flapSound = GameObject.FindGameObjectWithTag("FlapSound").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            audio.Play();
+            flapSound.Play();
             rb.velocity = Vector2.zero;
             rb.AddForce(new Vector2(0, 1) * jumpStrenght, ForceMode2D.Impulse);
         }
@@ -59,5 +62,13 @@ public class PlayerController : MonoBehaviour
             score += 1;
             text.text = score.ToString();
         }
+
+        if (collision.gameObject.tag == "Fish")
+        {
+            fishScore += 1;
+            fish.text = fishScore.ToString();
+            Destroy(collision.gameObject);
+        }
     }
+
 }

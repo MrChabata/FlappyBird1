@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MenuUIController : MonoBehaviour
 {
-    private AudioSource audio;
+    public AudioSource clickSFX;
     // Start is called before the first frame update
     void Start()
     {
-        audio = GameObject.FindGameObjectWithTag("ClickSound").GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -20,16 +20,13 @@ public class MenuUIController : MonoBehaviour
 
     public void ExitGame()
     {
-        audio.Play();
         print("ExitGame");
         Application.Quit();
     }
 
     public void StartGame()
     {
-        audio.Play();
+        clickSFX.Play();
         SceneManager.LoadScene("Game");
     }
-
-
 }
