@@ -17,7 +17,11 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Global.isPause) return;
+        if (Global.isPause)
+        {
+            StopCoroutine("Courutin");
+            return;
+        }
         if (!Global.isAlive)
         {
             StopCoroutine("Courutin");
@@ -56,7 +60,6 @@ public class Spawner : MonoBehaviour
         {
             Instantiate(fish, newBlock.transform.position, Quaternion.identity);
         }
-        Destroy(newBlock, 5);
+        if(Global.isAlive == true && Global.isPause) Destroy(newBlock, 5);
     }
-
 }

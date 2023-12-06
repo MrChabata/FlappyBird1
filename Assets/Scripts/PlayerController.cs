@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private int fishScore;
     public Text fish;
     private AudioSource flapSound;
+    public AudioSource deathSound;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -49,9 +50,13 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ice")
         {
+            deathSound.Play();
             Global.isAlive = false;
-            Destroy(gameObject);
+            Destroy(gameObject, 4);
+            rb.simulated = false;
+            GetComponent<SpriteRenderer>().enabled = false;
             deathScreen.SetActive(true);
+            StartCoroutine("DelayRestart");
         }
     }
 
@@ -71,4 +76,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator DelayRestart()
+    {
+        Global.isPause = true;
+        yield return new WaitForSeconds(2);
+        Global.isPause = false;
+    }
 }

@@ -29,7 +29,12 @@ public class BackgroundMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Global.isPause) return;
+        if (Global.isPause)
+        {
+            rb1.velocity = Vector3.zero;
+            rb2.velocity = Vector3.zero;
+            return;
+        }
         if (!Global.isAlive)
         {
             rb1.velocity = Vector3.zero;
