@@ -15,8 +15,12 @@ public class PlayerController : MonoBehaviour
     public Text fish;
     private AudioSource flapSound;
     public AudioSource deathSound;
+    public int record;
+    public int fishRecord;
     void Start()
     {
+        record = PlayerPrefs.GetInt("Record");
+        fishRecord = PlayerPrefs.GetInt("FishRecord");
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         score = 0;
@@ -57,6 +61,8 @@ public class PlayerController : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = false;
             deathScreen.SetActive(true);
             StartCoroutine("DelayRestart");
+            if (score > record) PlayerPrefs.SetInt("Record", score);
+            if (fishScore > fishRecord) PlayerPrefs.SetInt("FishRecord", fishScore);
         }
     }
 

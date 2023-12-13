@@ -60,6 +60,6 @@ public class Spawner : MonoBehaviour
         {
             Instantiate(fish, newBlock.transform.position, Quaternion.identity);
         }
-        if(Global.isAlive == true && Global.isPause) Destroy(newBlock, 5);
+        Destroy(newBlock, 5);
     }
 }
